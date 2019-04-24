@@ -1,0 +1,236 @@
+{include file="public/header"}
+
+<body>
+
+  <section id="container" class="">
+    <!--header start-->
+    {include file="public/headtop"}
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar"  class="nav-collapse ">
+        <!-- sidebar menu start-->
+        {include file="public/menu" /}
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper site-min-height">
+        <!-- page start-->
+        <div class="row">
+          <div class="col-md-8">
+            <section class="panel">
+              <div class="bio-graph-heading project-heading">
+                <strong> 在线充值 </strong>
+              </div>
+              <div class="panel-body bio-graph-info">
+                <!--<h1>New Dashboard BS3 </h1>-->
+                <div class="row p-details">
+                  <div class="bio-row">
+                    <p><span class="bold">账户余额 </span>: <b>{$userInfo.money}</b> 元</p>
+                  </div>
+                  <div class="bio-row">
+                    <p><span class="bold">支付方式 </span>: 支付宝/微信/QQ/财付通</p>
+                  </div>
+                  
+                  <div class="bio-row">
+                    <p><span class="bold">支付说明 </span>: 充值最小单位为1/元。本次充值由第三方支付进行收款，如果遇到订单延迟、未到账等异常情况请联系管理员进行处理。如遇到弹窗拦截请点击按钮进行跳转支付</p>
+                  </div>
+                </div>
+                <form class="form-inline" role="form" action="" method="POST" target="_blank">
+                  <div class="form-group col-xs-8">
+                    <label class="sr-only" for="pay_money">充值金额</label>
+                    <input type="number" class="form-control" id="pay_money" name="pay_money" placeholder="单位/元">
+                  </div>
+                  <br/>
+                  <div class="form-group col-xs-8">
+                    <label><input type="radio" name="pay_type" value="alipay" checked="" {$status['alipay']?'':'disabled=""'}>支付宝</label>
+                    <label><input type="radio" name="pay_type" value="qqpay" {$status['qqpay']?'':'disabled=""'}>QQ钱包</label>
+                    <label><input type="radio" name="pay_type" value="wxpay" {$status['wxpay']?'':'disabled=""'}>微信支付</label>
+                    <label><input type="radio" name="pay_type" value="tenpay" {$status['tenpay']?'':'disabled=""'}>财付通</label>
+                  </div>
+                  <input type="submit" class="btn btn-info col-xs-4" id="pay_clicks" value="确认充值" onclick="ajax_pay()">
+                </form>
+              </div>
+              <div id="htmlCode"></div>
+            </section>
+          </div>
+          <div class="col-md-4">
+            <section class="panel">
+              <div class="bio-graph-heading project-heading">
+                <strong> 充值记录 </strong>
+              </div>
+              <div class="panel-body">
+                {volist name="pay_list" id="pay" empty="暂无充值记录"}
+                <li>
+                  {$pay.ctime}  
+                  {switch name="$pay.type" }
+                  {case value="0"}{/case} 
+                  {case value="1"}支付宝{/case} 
+                  {case value="2"}微信{/case} 
+                  {case value="3"}QQ{/case} 
+                  {case value="4"}财付通{/case} 
+                  {/switch}
+                  充值 {$pay.money} 元
+                  {switch name="$pay.status" }
+                  {case value="0"}未支付{/case} 
+                  {case value="1"}充值成功{/case} 
+                  {case value="2"}充值取消{/case}
+                  {case value="3"}订单异常{/case}
+                  {/switch}
+                </li>
+                {/volist}
+              </div>
+            </section>
+          </div>
+          <div class="col-md-4">
+            <section class="panel">
+              <div class="bio-graph-heading project-heading">
+                <strong> 兑换中心 </strong>
+              </div>
+              <div class="panel-body">
+                <form class="form-inline" role="form">
+                  <div class="form-group col-xs-8">
+                    <label class="sr-only" for="redeem">兑换码</label>
+                    <input type="text" class="form-control" id="redeem" name="redeem" placeholder="xxxx-xxxx-xxxx-xxxx">
+                  </div>
+                  <input type="button" class="btn btn-success col-xs-4" id="redeem_click" value="兑换" />
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <div class="modal fade" id="EchoMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content-wrap">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">消息通知</h4>
+                      </div>
+                      <div class="modal-body text-center" id="msgVal">
+
+                      </div>
+                      <div class="modal-footer">
+                        <button class="btn btn-danger" type="button" data-dismiss="modal"> OK</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+
+    <!-- Right Slidebar start -->
+    {include file="public/slidright"}
+    <!-- Right Slidebar end -->
+
+    <!--footer start-->
+    <footer class="site-footer">
+      {include file="public/footer"}
+    </footer>
+    <!--footer end-->
+  </section>
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+  <script src="__STATIC__/js/slidebars.min.js"></script>
+  <script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="__STATIC__/js/respond.min.js" ></script>
+
+  <!--common script for all pages-->
+  <script src="__STATIC__/js/common-scripts.js"></script>
+
+  <script type="text/javascript">
+    function EchoMsg(msg,local){
+      $('#msgVal').html(msg);
+      $('#EchoMsg').modal('show');
+      if(local){
+        $('#EchoMsg').on('hidden.bs.modal', function () {
+          window.location.href = local;
+        })
+      }
+    }
+    $('#redeem_click').click(function(event) {
+      redeem();
+    });
+    function redeem(){
+      if($('#redeem').val()==''){
+        EchoMsg('兑换码不能为空');
+        return false;
+      }
+      $.post('', {redeem: $('#redeem').val()}, function(data, textStatus, xhr) {
+        if(data.code==200){
+          EchoMsg(data.msg,'/user/pay.html');
+        }else{
+          EchoMsg('兑换失败:'+data.msg,'/user/pay.html');
+        }
+      });
+    }
+
+    $('#pay_click').click(function(event) {
+      pay_money();
+    });
+    function pay_money(){
+      if($('#pay_money').val()==''){
+        EchoMsg('充值金额不能为空');
+        return false;
+      }
+      $.post('', {pay_money: $('#pay_money').val()}, function(data, textStatus, xhr) {
+        if(data.code==200){
+          EchoMsg(data.msg,'/user/pay.html');
+        }else{
+          EchoMsg('下单失败:'+data.msg,'/user/pay.html');
+        }
+      });
+    }
+
+    // $('#pay_clicks').click(function(event) {
+    //   ajax_pay();
+    // });
+    function ajax_pay(){
+      var pay_money = $('#pay_money').val();
+      var pay_type = $('input[name="pay_type"]:checked').val();
+      if(!pay_money){
+        EchoMsg('充值金额不能为空');
+        return false;
+      }
+      $('#pay_clicks').attr('disabled','disabled');
+      $.ajax({
+        url: '/user/getpaynum.html',
+        type: 'POST',
+        dataType: 'json',
+        data: {key: Math.random(),pay_money:pay_money,pay_type:pay_type},
+      })
+      .done(function(data) {
+        if(data['code']==200){
+          EchoMsg(data['msg']+data['data']['htmlCode'],'/user/pay.html');
+          //$('#htmlCode').html(data['data']['htmlCode']);
+        }else{
+          EchoMsg('Error'+data['msg']);
+        }
+      })
+      .fail(function(data) {
+        EchoMsg('Error'+data['msg']);
+      })
+      
+    }
+
+  </script>
+
+
+</body>
+</html>

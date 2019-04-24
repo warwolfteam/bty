@@ -1,0 +1,30 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站日志列表</div>
+	<div id="main">
+		<table class="table table-bordered">
+			<thead>
+				<tr >
+					<th>IP</th>
+					<th>时间</th>
+					<th>请求方式</th>
+					<th>请求地址</th>
+					<th>返回状态</th>
+					<th>来路</th>
+					<th>UA</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="logList" id="log" empty="当前网站没有日志"}
+				<tr >
+					<th colspan="7">{$log}</th>
+				</tr>
+				{/volist}
+			</tbody>
+		</table>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

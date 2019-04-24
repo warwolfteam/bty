@@ -1,0 +1,209 @@
+{include file="public/header" /}
+
+<body>
+
+  <section id="container" >
+    <!--header start-->
+    {include file="public/headtop" /}
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar"  class="nav-collapse ">
+        <!-- sidebar menu start-->
+        {include file="public/menu" /}
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper site-min-height">
+        <!--state overview start-->
+        <div class="row state-overview">
+          <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+              <div class="symbol terques">
+                <i class="fa fa-user"></i>
+              </div>
+              <div class="value">
+                <h1 class="count">
+                  0
+                </h1>
+                <p>用户数</p>
+              </div>
+            </section>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+              <div class="symbol red">
+                <i class="fa fa-tags"></i>
+              </div>
+              <div class="value">
+                <h1 class=" count2">
+                  0
+                </h1>
+                <p>服务器数</p>
+              </div>
+            </section>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+              <div class="symbol yellow">
+                <i class="fa fa-shopping-cart"></i>
+              </div>
+              <div class="value">
+                <h1 class=" count3">
+                  0
+                </h1>
+                <p>订单数</p>
+              </div>
+            </section>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <section class="panel">
+              <div class="symbol blue">
+                <i class="fa fa-bar-chart-o"></i>
+              </div>
+              <div class="value">
+                <h1 class=" count4">
+                  0
+                </h1>
+                <p>主机数</p>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!--state overview end-->
+        <div class="row'">
+          <div class="col-lg-12">
+
+            <section class="panel">
+              <header class="panel-heading">
+                管理员须知
+              </header>
+              <div class="panel-body">
+                <p>
+                  本系统由 <a href="https://www.youngxj.cn">Youngxj</a> 编写，请遵守源码使用守则，勿非法传播此源码，一经发现严肃处理。
+                </p>
+                <p></p>
+                <p>主体添加教程：
+                  <li>宝塔安装：请在分销服务器中安装宝塔最新面板 <a href="https://www.bt.cn/" target="_black">宝塔官网</a> | <a href="https://www.bt.cn/register.html?referee=3671" target="_black">注册</a> 
+                  </li>
+                  <li>环境安装：当面板安装完成后请登录网页版宝塔面板管理后台进行环境的安装，小杰推荐如下配置 Centos7.2 | PHP5.3-7.3 | Mysql5.5 | Redis4.0.9 | Nginx1.14.0 | Pure-Ftpd 1.0.47 | phpMyAdmin 4.4 | 宝塔一键部署源码 1.1
+                  </li>
+                  <li>宝塔Api密钥：宝塔面板-API接口-开启并获取接口密钥-填写IP白名单为当前分销系统搭建的服务器IP</li>
+                  <li>测试域名：需要泛域名解析一个顶级域名到该服务器IP上，填写到分销系统主机管理-添加主机-测试域名中</li>
+                  <li style="word-wrap : break-word;">数据库管理地址：宝塔面板-数据库-phpMyAdmin，然后复制地址http://x.x.x.x:888/phpmyadmin_xxxxxxxxxx/index.php填写到分销系统主机管理-添加主机-数据库管理地址中</li>
+                  <li>性能标签：在添加服务器时请按照标准信息进行填写，否则容易出现一些意想不到的问题。描述主机性能尽量使用2G4H6M等简明扼要的关键词</li>
+                  <li>环境标签：服务器安装及已安装的插件环境，描述主机环境尽量使用Centos7.2 PHP5.3-7.3等简明扼要的关键词</li>
+                  <li>提醒：由于宝塔是未限制空间大小制度，所以目前不能限制用户空间及数据库的使用大小。
+                  </li>
+                  <li>如果遇到主机开通失败报错，请先检查主机信息是否正确，之后确认本系统运行的IP是否在API接口白名单中。</li>
+                  <li>后期会让更多插件可以使用在分销主机上，让主机操作</li>
+                </p>
+                <p>如在使用过程遇到任何问题请在交流群：<code><a href="https://api.yum6.cn/qqun.php?qun=774688083" target="_black">774688083</a></code> 进行反馈</p>
+                
+                <p id="update_notice"></p>
+                <p>
+                  当前版本：Bty_{$Think.config.config.bty_version} <a href="javascript:update_nspect()" id="is_update">检查更新</a>
+                </p>
+                <p id="update_msg"></p>
+
+              </div>
+
+            </section>
+          </div>
+        </div>
+
+      </section>
+
+    </section>
+
+    
+    <!--main content end-->
+
+    <!-- Right Slidebar start -->
+    {include file="public/slidright"}
+    <!-- Right Slidebar end -->
+
+    <!--footer start-->
+    {include file="public/footer" /}
+    <!--footer end-->
+  </section>
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+  <script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="__STATIC__/js/jquery.sparkline.js" type="text/javascript"></script>
+  <script src="__STATIC__/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+  <script src="__STATIC__/js/owl.carousel.js" ></script>
+  <script src="__STATIC__/js/jquery.customSelect.min.js" ></script>
+  <script src="__STATIC__/js/respond.min.js" ></script>
+
+  <!--right slidebar-->
+  <script src="__STATIC__/js/slidebars.min.js"></script>
+
+  <!--common script for all pages-->
+  <script src="__STATIC__/js/common-scripts.js"></script>
+
+  <!--script for this page-->
+  <script src="__STATIC__/js/sparkline-chart.js"></script>
+  <script src="__STATIC__/js/easy-pie-chart.js"></script>
+  <script src="__STATIC__/js/count.js"></script>
+
+  <script>
+    countUp({$userCount?$userCount:'0'});
+    countUp2({$hostCount?$hostCount:'0'});
+    countUp3({$orderCount?$orderCount:'0'});
+    countUp4({$bthostCount?$bthostCount:'0'});
+      //owl carousel
+
+      $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+          navigation : true,
+          slideSpeed : 300,
+          paginationSpeed : 400,
+          singleItem : true,
+          autoPlay:true
+
+        });
+      });
+
+      //custom select box
+
+      $(function(){
+        update_nspect();
+        $('select.styled').customSelect();
+      });
+      function update_nspect(){
+        version = {$Think.config.config.bty_version};
+        $('#is_update').html('正在检查，请稍候…………');
+        $.ajax({
+          url: '{$Think.config.config.bty_update}/Bty.php',
+          type: 'POST',
+          dataType: 'json',
+          data: {type: 'update'},
+        })
+        .done(function(data) {
+          $('#update_notice').html(data['data']['notice']);
+          if(version<data['data']['version']){
+            $("#is_update").attr("href",data['data']['new_url']); 
+            $('#is_update').html('发现新版程序：'+data['data']['version']);
+            $('#update_msg').html('<code>更新介绍：</code>'+data['data']['msg']+'    <a href="'+data['data']['new_url']+'">更多详细信息</a>');
+          }else{
+            $('#is_update').html('当前版本已经是最新');
+          }
+        })
+        .fail(function(data) {
+          $('#is_update').html('连接云端失败……');
+        })
+        
+      }
+    </script>
+
+
+  </body>
+  </html>

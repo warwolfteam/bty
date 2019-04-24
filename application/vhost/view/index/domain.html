@@ -1,0 +1,60 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站域名绑定配置</div>
+
+	<div id="main">
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<td>域名</td>
+						<td>状态</td>
+						<td>目录</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					{volist name="domainList" id="domain"}
+					<tr>
+						<td>{$domain.name}</td>
+						<td>正常</td>
+						<td>/</td>
+						<td><a href="?delete={$domain.name}">删除</a></td>
+					</tr>
+					{/volist}
+					{volist name="dirList.binding" id="domain"}
+					<tr>
+						<td>{$domain.domain}</td>
+						<td>正常</td>
+						<td>{$domain.path}</td>
+						<td><a href="?deletedir={$domain.id}">删除</a></td>
+					</tr>
+					{/volist}
+					<tr>
+						<td style="border:0" colspan="3">
+							域名：<input type="text" name="domain">
+							子目录: <select name="dirs">
+								<option value="/">/</option>
+								{volist name="$dirList.dirs" id="dirs"}
+								<option value="{$dirs}">{$dirs}</option>
+								{/volist}
+							</select>
+							<input type="submit" value="增加" class="btn btn-warning">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							增加域名绑定，域名在添加绑定之前请先解析域名CNAME解析指向 {$btHostInfo.domain}
+
+							把域名解析到指定的CNAME.
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

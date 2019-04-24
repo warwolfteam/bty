@@ -1,0 +1,283 @@
+{include file="public/header"}
+
+<body>
+
+  <section id="container" class="">
+    <!--header start-->
+    {include file="public/headtop" username="$adminInfo.username"/}
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar"  class="nav-collapse ">
+        <!-- sidebar menu start-->
+        {include file="public/menu" /}
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper site-min-height">
+        <!-- page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            {include file="public/nav" webnavname="网站设置"}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                管理员账号设置
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/admin/upadmin.html">
+                  <div class="form-group">
+                    <label for="username" class="col-lg-2 col-sm-2 control-label">账号</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="username" name="username" placeholder="账号" value="{$adminInfo.username}">
+                      <p class="help-block"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-lg-2 col-sm-2 control-label">密码</label>
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" id="userpass" name="password" placeholder="不修改请留空">
+                      <p class="help-block"></p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Iplist" class="col-lg-2 col-sm-2 control-label">IP白名单</label>
+                    <div class="col-lg-10">
+                      <input name="Iplist" id="Iplist" class="tagsinput" value="{$adminInfo.Oip}" />
+                      <p class="help-block">强制白名单，请谨慎操作，如不需要，请改成0.0.0.0</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <button type="submit" class="btn btn-danger">提交</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                基本信息配置
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/admin/upwebinfo.html">
+                  <div class="form-group">
+                    <label for="webdomain" class="col-lg-2 col-sm-2 control-label">站点域名</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="webdomain" name="webdomain" placeholder="网站域名" value="{$webInfo.webdomain}">
+                      <p class="help-block">不要加http(s)://</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="webname" class="col-lg-2 col-sm-2 control-label">站点名</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="webname" name="webname" placeholder="站点名" value="{$webInfo.webname}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="webkey" class="col-lg-2 col-sm-2 control-label">站点关键词</label>
+                    <div class="col-lg-10">
+                      <input id="webkey" class="tagsinput" name="webkey" placeholder="站点关键词" value="{$webInfo.webkey}" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="webdes" class="col-lg-2 col-sm-2 control-label">站点描述</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="webdes" name="webdes" placeholder="站点描述" value="{$webInfo.webdes}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <button type="submit" class="btn btn-danger">提交</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                彩虹易支付参数配置
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/admin/upepayinfo.html">
+                  <div class="form-group">
+                    <label for="partner" class="col-lg-2 col-sm-2 control-label">商户ID</label>
+                    <div class="col-lg-10">
+                      <input type="number" class="form-control" id="partner" name="partner" placeholder="商户ID" value="{$payInfo.partner}">
+                      <p class="help-block">彩虹易支付商户ID</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="key" class="col-lg-2 col-sm-2 control-label">商户Key</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="key" name="key" placeholder="商户key" value="{$payInfo.key}">
+                      <p class="help-block">彩虹易支付商户密钥</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="apiurl" class="col-lg-2 col-sm-2 control-label">支付接口</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="apiurl" name="apiurl" placeholder="支付接口" value="{$payInfo.apiurl}">
+                      <p class="help-block">官网指定接口，不清楚用途请勿修改</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="notify_url" class="col-lg-2 col-sm-2 control-label">异步通知页面地址</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="notify_url" name="notify_url" placeholder="异步通知页面地址" value="{$payInfo.notify_url}">
+                      <p class="help-block">系统固定接口，不清楚用途请勿修改</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="return_url" class="col-lg-2 col-sm-2 control-label">页面跳转同步通知页面路径</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="return_url" name="return_url" placeholder="页面跳转同步通知页面路径" value="{$payInfo.return_url}">
+                      <p class="help-block">系统固定接口，不清楚用途请勿修改</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="ssl" class="col-lg-2 col-sm-2 control-label">是否HTTPS</label>
+                    <div class="col-lg-10">
+                      <label class="checkbox-inline"><input type="radio" name="ssl" id="ssl" value="1" {$payInfo.ssl?'checked=""':''}> 开启</label>
+                      <label class="checkbox-inline"><input type="radio" name="ssl" id="ssl1" value="0" {$payInfo.ssl?'':'checked=""'}> 关闭</label>
+                      <p class="help-block">站点为HTTPS时请开启</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="status" class="col-lg-2 col-sm-2 control-label">开通的在线支付</label>
+                    <div class="col-lg-10">
+                      <label class="checkbox-inline">
+                        <input type="checkbox" id="alipay" name="alipay" value="1" {$paystatus['alipay']?'checked=""':''}> 支付宝
+                      </label>
+                      <label class="checkbox-inline">
+                        <input type="checkbox" id="qqpay" name="qqpay" value="1" {$paystatus['qqpay']?'checked=""':''}> 微信钱包
+                      </label>
+                      <label class="checkbox-inline">
+                        <input type="checkbox" id="wxpay" name="wxpay" value="1" {$paystatus['wxpay']?'checked=""':''}> QQ钱包
+                      </label>
+                      <label class="checkbox-inline">
+                        <input type="checkbox" id="tenpay" name="tenpay" value="1" {$paystatus['tenpay']?'checked=""':''}> 财付通
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <button type="submit" class="btn btn-danger">提交</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                站点SMTP发信配置
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" role="form" method="post" action="/admin/upsmtp.html">
+                  <div class="form-group">
+                    <label for="host" class="col-lg-2 col-sm-2 control-label">邮件服务器</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="host" name="host" placeholder="邮件服务器" value="{$smtpInfo.host}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="port" class="col-lg-2 col-sm-2 control-label">发信端口</label>
+                    <div class="col-lg-10">
+                      <input type="number" class="form-control" id="port" name="port" placeholder="发信端口" value="{$smtpInfo.port}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="fromname" class="col-lg-2 col-sm-2 control-label">发信昵称</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="fromname" name="fromname" placeholder="发信昵称" value="{$smtpInfo.fromname}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="username" class="col-lg-2 col-sm-2 control-label">发信邮箱</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="smtpname" name="username" placeholder="发信邮箱" value="{$smtpInfo.username}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="col-lg-2 col-sm-2 control-label">邮箱密码</label>
+                    <div class="col-lg-10">
+                      <input type="password" class="form-control" id="smtppass" name="password" placeholder="邮箱密码" value="{$smtpInfo.password}">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                      <button type="submit" class="btn btn-danger">提交</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <!-- Right Slidebar start -->
+    {include file="public/slidright"}
+    <!-- Right Slidebar end -->
+    <!--footer start-->
+    {include file="public/footer"}
+    <!--footer end-->
+  </section>
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/bootstrap.min.js"></script>
+  <script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+  <script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+
+  <script src="__STATIC__/js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+
+  <!--custom switch-->
+  <script src="__STATIC__/js/bootstrap-switch.js"></script>
+  <!--custom tagsinput-->
+  <script src="__STATIC__/js/jquery.tagsinput.js"></script>
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="__STATIC__/js/ga.js"></script>
+
+  <script type="text/javascript" src="__STATIC__/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="__STATIC__/assets/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="__STATIC__/assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="__STATIC__/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+  <script type="text/javascript" src="__STATIC__/assets/ckeditor/ckeditor.js"></script>
+
+  <script type="text/javascript" src="__STATIC__/assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
+  <script src="__STATIC__/js/respond.min.js" ></script>
+
+  <!--right slidebar-->
+  <script src="__STATIC__/js/slidebars.min.js"></script>
+
+
+  <!--common script for all pages-->
+  <script src="__STATIC__/js/common-scripts.js"></script>
+
+  <!--script for this page-->
+  <script src="__STATIC__/js/form-component.js"></script>
+
+</body>
+</html>

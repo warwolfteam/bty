@@ -1,0 +1,38 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站防盗链管理</div>
+
+	<div id="main">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="2">状态：{$GetSecurity['status'] ? '<span style="color:green">已开启</span><a href="?protection=off">[关闭]</a>' : '<span style="color:#2288cc">未开启</span>'}</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">设置盗链</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="border:0">
+							URL后缀 <input name="sec_fix" class="span3" value="{$GetSecurity['fix']}" style="width:360px" {$GetSecurity['status'] ? 'disabled="disabled"' : ''}>
+						</td>
+					</tr>
+					<tr><td>许可域名 <input name="sec_domains" class="span3" placeholder="多个域名用,分隔" value="{$GetSecurity['domains']}" style="width:360px" {$GetSecurity['status'] ? 'disabled="disabled"' : ''}></td></tr>
+					<tr><td><input type="submit" value="开启并提交" class="btn btn-warning" {$GetSecurity['status'] ? 'disabled="disabled"' : ''}></td></tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

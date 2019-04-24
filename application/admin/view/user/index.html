@@ -1,0 +1,374 @@
+{include file="public/header"}
+
+<body>
+
+	<section id="container" class="">
+		<!--header start-->
+		{include file="public/headtop" /}
+		<!--header end-->
+		<!--sidebar start-->
+		<aside>
+			<div id="sidebar"  class="nav-collapse ">
+				<!-- sidebar menu start-->
+				{include file="public/menu" /}
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+		<!--sidebar end-->
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper site-min-height">
+				<!-- page start-->
+				<div class="row">
+					<div class="col-lg-12">
+						{include file="public/nav" webnavname="用户管理"}
+					</div>
+					<div class="col-lg-6">
+						<div class="btn-group">
+							<button id="editable-sample_new" class="btn green success" data-toggle="modal" href="#incUser">
+								新增用户 <i class="fa fa-plus"></i>
+							</button>
+						</div>
+						
+					</div>
+					<div class="col-lg-6">
+						<input type="text"  class="form-control medium" id="search" placeholder="搜索用户，全部用户请为空">
+					</div>
+					<div class="col-lg-12">
+						
+						<section class="panel">
+							<header class="panel-heading">
+								用户列表
+							</header>
+							<table class="table table-striped table-advance table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th><i class="fa fa-user"></i> 账号</th>
+										<th class="hidden-phone"><i class="fa fa-envelope"></i> 邮箱</th>
+										<th><i class="fa fa-rmb"></i> 余额</th>
+										<th><i class="fa fa-users"></i> 用户组</th>
+										<th class="hidden-phone">LastTime</th>
+										<th class="hidden-phone">LastIp</th>
+										<th><i class="fa fa-edit"></i> 状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									{volist name="userList" id="user" empty="当前无数据"}
+									<tr id="userList_{$user.id}">
+										<input type="hidden" id="group_hidden" value="{$user.usergroupid}">
+										<td>{$user.id}</td>
+										<td><a href="/admin/info/{$user.id}.html">{$user.username}</a></td>
+										<td class="hidden-phone">{$user.email}</td>
+										<td>{$user.money}</td>
+										<td>
+											{switch name="user.usergroupid" }
+											{case value="1"}<span class="label label-inverse label-mini">{/case}
+											{case value="2"}<span class="label label-warning label-mini">{/case}
+											{case value="3"}<span class="label label-primary label-mini">{/case}
+											{case value="4"}<span class="label label-danger label-mini">{/case}
+											{default /}<span class="label label-success label-mini">
+											{/switch}
+											{$user.usergroup}</span>
+										</td>
+										<td class="hidden-phone">{$user.ltime}</td>
+										<td class="hidden-phone">{$user.lip}</td>
+										<td id="dis_{$user.id}" onclick="dis({$user.id})">{$user.status?'<a class="label label-success" title="点击禁用">正常</a>' : '<a class="label label-danger" title="点击启用">禁用</a>'}</td>
+										<td>
+											<button class="btn btn-primary btn-xs"><i class="fa fa-pencil" onclick="getUserInfo({$user.id})"></i></button>
+											<button class="btn btn-danger btn-xs" data-toggle="modal" href="#delUser" onclick="$('#UserID').val({$user.id})"><i class="fa fa-trash-o "></i></button>
+										</td>
+									</tr>
+									{/volist}
+
+								</tbody>
+							</table>
+							<div class="text-center">
+								{$pageNum}
+							</div>
+
+						</section>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<section class="panel">
+							<div class="panel-body">
+								<input type="hidden" name="UserID" id="UserID">
+								<div class="modal fade  modal-dialog-center" id="delUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content-wrap">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">是否删除该账户</h4>
+												</div>
+												<div class="modal-body">
+
+													此账户一旦删除将无法还原，请谨慎操作！
+
+												</div>
+												<div class="modal-footer">
+													<button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+
+													<button class="btn btn-warning" type="button" onclick="del($('#UserID').val())"> 删除</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal fade" id="EchoMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content-wrap">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">消息通知</h4>
+												</div>
+												<div class="modal-body text-center" id="msgVal">
+
+												</div>
+												<div class="modal-footer">
+													<button class="btn btn-danger" type="button" data-dismiss="modal"> OK</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal fade  modal-dialog-center" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content-wrap">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">修改账户</h4>
+												</div>
+												<div class="modal-body">
+
+													<form role="form">
+														<div class="form-group">
+															<label>账号</label>
+															<div class="iconic-input">
+																<i class="fa fa-user"></i>
+																<input type="text" class="form-control" name="username" id="username" placeholder="账号">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>密码</label>
+															<div class="iconic-input">
+																<i class="fa fa-unlock-alt"></i>
+																<input type="password" class="form-control" name="password" id="password" placeholder="不改留空">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>余额</label>
+															<div class="iconic-input">
+																<i class="fa fa-cny"></i>
+																<input type="number" class="form-control" name="money" id="money" placeholder="余额">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>邮箱</label>
+															<div class="iconic-input">
+																<i class="fa fa-envelope"></i>
+																<input type="text" class="form-control" name="email" id="email" placeholder="邮箱">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>用户组</label>
+															<div class="iconic-input">
+																<select name="usergroup" id="usergroup" class="form-control m-bot15">
+																	{volist name="usergroup" id="group"}
+																	<option value="{$group.id}">{$group.name}</option>
+																	{/volist}
+																</select>
+															</div>
+														</div>
+
+													</form>
+
+												</div>
+												<div class="modal-footer">
+													<button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+													<button class="btn btn-warning" type="button" onclick="update($('#UserID').val())"> 保存</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal fade  modal-dialog-center" id="incUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content-wrap">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													<h4 class="modal-title">新增账户</h4>
+												</div>
+												<div class="modal-body">
+
+													<form role="form">
+														<div class="form-group">
+															<label>账号</label>
+															<div class="iconic-input">
+																<i class="fa fa-user"></i>
+																<input type="text" class="form-control" name="username" id="username_inc" placeholder="账号">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>密码</label>
+															<div class="iconic-input">
+																<i class="fa fa-unlock-alt"></i>
+																<input type="password" class="form-control" name="password" id="password_inc" placeholder="密码">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>邮箱</label>
+															<div class="iconic-input">
+																<i class="fa fa-envelope"></i>
+																<input type="text" class="form-control" name="email" id="email_inc" placeholder="邮箱">
+															</div>
+														</div>
+														<div class="form-group">
+															<label>用户组</label>
+															<div class="iconic-input">
+																<select name="usergroup" id="usergroup_inc" class="form-control m-bot15">
+																	{volist name="usergroup" id="group"}
+																	<option value="{$group.id}">{$group.name}</option>
+																	{/volist}
+																</select>
+															</div>
+														</div>
+
+													</form>
+
+												</div>
+												<div class="modal-footer">
+													<button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+													<button class="btn btn-warning" type="button" onclick="inc()"> 新增</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				</div>
+				<!-- page end-->
+			</section>
+		</section>
+		<!--main content end-->
+		<!-- Right Slidebar start -->
+		{include file="public/slidright"}
+		<!-- Right Slidebar end -->
+		<!--footer start-->
+		<footer class="site-footer">
+			{include file="public/footer"}
+		</footer>
+		<!--footer end-->
+	</section>
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="__STATIC__/js/jquery.js"></script>
+	<script src="__STATIC__/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+	<script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+	<script src="__STATIC__/js/respond.min.js" ></script>
+
+	<!--right slidebar-->
+	<script src="__STATIC__/js/slidebars.min.js"></script>
+
+
+	<!--common script for all pages-->
+	<script src="__STATIC__/js/common-scripts.js"></script>
+	<script type="text/javascript">
+		function del(id){
+			$('#delUser').modal('hide');
+			$.post('', {id: id,type:'del'}, function(data, textStatus, xhr) {
+				if(data.code!=200){
+					EchoMsg(data.msg,'/admin/user.html');
+				}else{
+					EchoMsg(data.msg,'/admin/user.html');
+				}
+
+			});
+		}
+		function update(id){
+			$('#updateUser').modal('hide');
+			var username = $('#updateUser #username').val();
+			var password = $('#updateUser #password').val();
+			var email = $('#updateUser #email').val();
+			var money = $('#updateUser #money').val();
+			var usergroup = $('#updateUser #usergroup').val();
+			$.post('', {id: id,type:'update',username:username,password:password,email:email,money:money,usergroup:usergroup}, function(data, textStatus, xhr) {
+				if(data.code!=200){
+					EchoMsg('修改失败：'+data.msg,'/admin/user.html');
+				}else{
+					EchoMsg(data.msg,'/admin/user.html');
+				}
+
+			});
+		}
+		function dis(id){
+			$('#updateUser').modal('hide');
+			var dis = $('#dis_'+id)[0].textContent;
+			if(dis=='禁用'){dis = 1;}else{dis = 0;}
+			$.post('', {id: id,type:'dis',dis:dis}, function(data, textStatus, xhr) {
+				if(data.code!=200){
+					EchoMsg('修改失败：'+data.msg,'/admin/user.html');
+				}else{
+					EchoMsg(data.msg,'/admin/user.html');
+				}
+			});
+		}
+		function inc(){
+			$('#incUser').modal('hide');
+			var username = $('#incUser #username_inc').val();
+			var password = $('#incUser #password_inc').val();
+			var email = $('#incUser #email_inc').val();
+			var usergroup = $('#incUser #usergroup_inc').val();
+			$.post('',{id:1,type:'inc',username:username,password:password,email:email,usergroup:usergroup},function(data){
+				if(data.code!=200){
+					EchoMsg('修改失败：'+data.msg,'/admin/user.html');
+				}else{
+					EchoMsg(data.msg,'/admin/user.html');
+				}
+			});
+		}
+		function getUserInfo(id){
+			//$('#userList_'+id+' td')[1].textContent;
+			var a = $('#userList_'+id+' td');
+			var username = a[1].textContent;
+			var email = a[2].textContent;
+			var money = a[3].textContent;
+			var usergroup = $('#userList_'+id+' #group_hidden').val();
+			$('#UserID').val(id);
+			$('#updateUser #username').val(username);
+			$('#updateUser #email').val(email);
+			$('#updateUser #money').val(money);
+			$('#updateUser #usergroup').val(usergroup);
+			$('#updateUser').modal('show');
+		}
+		$(function() {
+			$('#search').on('keypress',function(event){
+				if(event.keyCode == "13"){  
+					window.location.href="?search="+$('#search').val();
+				}
+			});
+		});
+		function EchoMsg(msg,local){
+			$('#msgVal').html(msg);
+			$('#EchoMsg').modal('show');
+			if(local){
+				$('#EchoMsg').on('hidden.bs.modal', function () {
+					window.location.href = local;
+				})
+			}
+		}
+	</script>
+
+</body>
+</html>

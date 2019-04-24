@@ -1,0 +1,331 @@
+{include file="public/header"}
+
+<body>
+
+  <section id="container" class="">
+    <!--header start-->
+    {include file="public/headtop"}
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar"  class="nav-collapse ">
+        <!-- sidebar menu start-->
+        {include file="public/menu" /}
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <!-- page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            {include file="public/nav" webnavname="用户信息"}
+          </div>
+          
+
+          
+          <div class="col-lg-4">
+            <!--widget start-->
+            <section class="panel">
+              <div class="twt-feed blue-bg">
+                <h1>{$userInfo.username}</h1>
+                <p>{$userInfo.email}</p>
+                <a href="#">
+                  <img src="__STATIC__/img/profile-avatar.jpg" alt="">
+                </a>
+              </div>
+              <div class="weather-category twt-category">
+                <ul>
+                  <li class="active">
+                    <h5>{$userInfo.money}</h5>
+                    余额
+                  </li>
+                  <li>
+                    <h5>{$UserHostCount}</h5>
+                    主机数
+                  </li>
+                  <li>
+                    <h5>0</h5>
+                    暂留
+                  </li>
+                </ul>
+
+              </div>
+              
+            </section>
+            <aside class="profile-nav alt green-border">
+              <section class="panel">
+
+                <ul class="nav nav-pills nav-stacked">
+                  <li><a href="javascript:;"> <i class="fa fa-clock-o"></i> 注册时间 <span class="label label-primary pull-right r-activity">{$userInfo.rtime}</span></a></li>
+                  <li><a href="javascript:;"> <i class="fa fa-calendar"></i> 注册Ip <span class="label label-info pull-right r-activity">{$userInfo.rip}</span></a></li>
+                  <li><a href="javascript:;"> <i class="fa fa-clock-o"></i> 最后登录时间 <span class="label label-primary pull-right r-activity">{$userInfo.ltime}</span></a></li>
+
+                  <li><a href="javascript:;"> <i class="fa fa-calendar"></i> 最后登录Ip <span class="label label-info pull-right r-activity">{$userInfo.lip}</span></a></li>
+
+                  <li><a href="javascript:;"> <i class="fa fa-bell-o"></i> 账号状态 <span class="label label-{$userInfo.status?'success':'danger'} pull-right r-activity">{$userInfo.status?'正常':'禁用'}</span></a></li>
+                  <li><a href="javascript:;"> <i class="fa fa-envelope"></i> 认证状态 <i class="fa fa-info-circle" onclick="authMsg()"></i> <span class="label label-danger pull-right r-activity">{$userInfo.emialauth?'已认证':'未认证'}</span></a></li>
+                  <li><a href="javascript:;"> <i class="fa fa-users"></i> 用户组 <span class="label label-success pull-right r-activity">{$userInfo.usergroup}</span></a></li>
+                  <li><a href="javascript:;"> <i class="fa fa-users"></i> 邀请注册码 <span id="copyValue" data-clipboard-target='#copyValue'><code>{$userInfo.invitation}</code></span> <span class="label label-success pull-right r-activity">{$userInfo.invcount}</span></a></li>
+                  <li><a href="javascript:userUp();"> <i class="fa fa-user"></i> 资料修改</a></li>
+                </ul>
+
+              </section>
+            </aside>
+            <!--widget end-->
+          </div>
+
+          <div class="col-lg-8">
+
+            <section class="panel">
+              <header class="panel-heading">
+                主机列表
+              </header>
+              <div class="list-group" >
+                {volist name="hostList" id="host" empty="当前账户未拥有主机"}
+                <a class="list-group-item " href="/user/host/{$host.id}.html">{$host.domain}</a>
+                {/volist}
+                {$hostList?'<a class="list-group-item text-danger text-center" href="/user/order.html"><b><<<<<<<<<<更多主机>>>>>>>>>></b></a>':''}
+              </div>
+            </section>
+
+            <section class="panel">
+              <header class="panel-heading">
+                账单
+              </header>
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>类型</th>
+                    <th>金币</th>
+                    <th>时间</th>
+                    <th>事件</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {volist name="billList" id="bill" empty="当前没有记录"}
+                  <tr>
+                    <td>{$bill.id}</td>
+                    <td>
+                      {switch name="bill.type"}
+                      {case value="0"}支出{/case}
+                      {case value="1"}充值{/case}
+                      {case value="2"}邀请{/case}
+                      {case value="3"}兑换{/case}
+                      {/switch}
+                    </td>
+                    <td>
+                      {switch name="bill.type"}
+                      {case value="0"}-{/case}
+                      {case value="1"}+{/case}
+                      {default /}+
+                      {/switch}
+                      {$bill.money}
+                    </td>
+                    <td>{$bill.ctime}</td>
+                    <td>{$bill.desc}</td>
+                  </tr>
+                  {/volist}
+                </tbody>
+              </table>
+            </section>
+
+            <section class="panel">
+              <header class="panel-heading">
+                邀请奖励说明
+              </header>
+              <div class="list-group">
+                <ul class="nav nav-pills nav-stacked" style="padding: 10px 20px 10px 20px">
+                  <li>为了感谢您的信任与支持，本站支持邀请用户获得奖励的机制，邀请越多奖励越多。</li>
+                  <li>邀请码： <span id="copyValue" data-clipboard-target='#copyValue'><code>{$userInfo.invitation}</code></span> </li>
+                  <p>邀请链接：  <a href="//{$WebSite}/user/Register.html?id={$userInfo.invitation}">http://{$WebSite}/user/Register.html?id={$userInfo.invitation}</a></p>
+                </ul>
+              </div>
+            </section>
+          </div>
+
+
+        </div>
+
+
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <div class="panel-body">
+
+                <div class="modal fade " id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content-wrap">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">修改账户信息</h4>
+                        </div>
+                        <div class="modal-body">
+
+                          <form role="form">
+                            <div class="form-group">
+                              <label>账号</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-user"></i>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="账号" value="{$userInfo.username}">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>密码</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-unlock-alt"></i>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="不改留空">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>邮箱</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-envelope"></i>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="邮箱" value="{$userInfo.email}">
+                                <p class=" text-danger"> 未认证</p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>QQ</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-envelope"></i>
+                                <input type="number" class="form-control" name="qq" id="qq" placeholder="QQ" value="{$userInfo.qq}">
+                                <p class="help-block"></p>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label>手机号</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-envelope"></i>
+                                <input type="number" class="form-control" name="phone" id="phone" placeholder="手机号" value="{$userInfo.phone}">
+                                <p class="help-block"></p>
+                              </div>
+                            </div>
+
+                          </form>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                          <button class="btn btn-warning" type="button" onclick="update()"> 修改</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal fade" id="EchoMsg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-sm">
+                    <div class="modal-content-wrap">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title">消息通知</h4>
+                        </div>
+                        <div class="modal-body text-center" id="msgVal">
+
+                        </div>
+                        <div class="modal-footer">
+                          <button class="btn btn-danger" type="button" data-dismiss="modal"> OK</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <!-- Right Slidebar start -->
+    {include file="public/slidright"}
+    <!-- Right Slidebar end -->
+    <!--footer start-->
+    <footer class="site-footer">
+      {include file="public/footer"}
+    </footer>
+    <!--footer end-->
+  </section>
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+  <script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <script src="__STATIC__/assets/jquery-knob/js/jquery.knob.js"></script>
+  <script src="__STATIC__/js/respond.min.js" ></script>
+
+  <!--right slidebar-->
+  <script src="__STATIC__/js/slidebars.min.js"></script>
+
+  <!--common script for all pages-->
+  <script src="__STATIC__/js/common-scripts.js"></script>
+
+  <!-- 复制js -->
+  <script src="__STATIC__/js/clipboard.min.js"></script>
+
+  <script>
+    $(".knob").knob();
+
+  </script>
+  <script type="text/javascript">
+    function userUp(){
+      $('#updateUser').modal('show');
+    }
+
+    function update(){
+      $('#updateUser').modal('hide');
+      var username = $('#updateUser #username').val();
+      var password = $('#updateUser #password').val();
+      var email = $('#updateUser #email').val();
+      var qq = $('#updateUser #qq').val();
+      var phone = $('#updateUser #phone').val();
+      $.post('', {username:username,password:password,email:email,qq:qq,phone:phone}, function(data, textStatus, xhr) {
+        if(data.code!=200){
+          EchoMsg('修改失败:'+data.msg,'/user/index.html');
+        }else{
+          EchoMsg(data.msg,'/user/index.html');
+        }
+
+      });
+    }
+
+    function authMsg(){
+      $('#msgVal').html("为了增加用户体验度，系统会发送一些系统提醒如：主机开通、主机到期、找回密码等操作，会使用到邮箱，所以请你务必进行认证，否则将收不到此类提醒");
+      $('#EchoMsg').modal('show');
+    }
+    function InvitationMsg(msg){
+      $('#msgVal').html(msg);
+      $('#EchoMsg').modal('show');
+    }
+    var clipboard = new ClipboardJS('#copyValue');
+    clipboard.on('success',function(e){
+     e.clearSelection();
+     InvitationMsg('复制成功');
+   });
+    clipboard.on('error',function(e){
+     e.clearSelection();
+     InvitationMsg('复制失败');
+   });
+    function EchoMsg(msg,local){
+      $('#msgVal').html(msg);
+      $('#EchoMsg').modal('show');
+      if(local){
+        $('#EchoMsg').on('hidden.bs.modal', function () {
+          window.location.href = local;
+        })
+      }
+    }
+  </script>
+
+</body>
+</html>

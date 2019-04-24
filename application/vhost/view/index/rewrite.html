@@ -1,0 +1,81 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">伪静态规则配置</div>
+
+	<div id="main">
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">伪静态规则设置</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="2">注意：请选择您的应用，若设置伪静态后，网站无法正常访问，请尝试设置回default<hr/>您可以对伪静态规则进行修改，修改完后保存即可。<hr/>
+						如果开启反向代理等功能会导致部分伪静态规则保存时出现报错，请您悉知。
+						</td>
+					</tr>
+					<tr>
+						<td>
+							子目录域名：<select id="dirdomain" name="dirdomain">
+								<option value="/">/</option>
+								{volist name="dirList.binding" id="domain"}
+								<option value="{$domain.id}">{$domain.domain}</option>
+								{/volist}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td style="border:0">
+							内置规则：<select id="rewritelist" >
+								{volist name="rewriteList.rewrite" id="rewrite"}
+								<option value="{$rewrite}">{$rewrite}</option>
+								{/volist}
+							</select>
+						</td>
+						<td style="border:0">规则转换工具：<a href="https://www.bt.cn/Tools">Apache转Nginx</a></td>
+						
+					</tr>
+					<tr>
+						<td style="border:0" colspan="2">
+							<textarea id="rewrite" style="width: 100%;height: 200px;" name="rewrite">{$rewriteInfo.data}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td style="border:0"><input type="submit" value="保存并开启" class="btn btn-warning" name="submit"></td>
+					</tr>
+
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+<script type="text/javascript">
+	$("#rewritelist").change(function(){
+		c();
+	});
+	$("#dirdomain").change(function(){
+		c();
+	});
+	function c(){
+		var rewrite = $('#rewritelist').val();
+		var dirdomain = $('#dirdomain').val();
+		$.ajax({
+			url: '',
+			type: 'POST',
+			dataType: 'json',
+			data: {rewrites:rewrite,dirdomain:dirdomain},
+		})
+		.done(function(data) {
+			$('#rewrite').val(data.data);
+		})
+		.fail(function(data) {
+			$('#rewrite').val(data.msg);
+		});
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>{$Think.const.WEB_NAME} - 虚拟主机控制面板</title>
+	<meta name="description" content="{$Think.const.WEB_DES}">
+	<meta name="keyword" content="{$Think.const.WEB_KEY}">
+	<!-- 定义语言编码 -->
+
+	<!-- 定义链接样式表 -->
+	<link rel="stylesheet" rev="stylesheet" href="__STATIC__/vhost/css/style.css" type="text/css"> 
+	<link rel="stylesheet" rev="stylesheet" href="__STATIC__/vhost/css/style2.css" type="text/css">
+	<link rel="stylesheet" rev="stylesheet" href="__STATIC__/vhost/css/piao_msg.css" type="text/css">
+
+	<link rel="stylesheet" rev="stylesheet" href="__STATIC__/vhost/css/default.css" type="text/css">
+	<script src="__STATIC__/vhost/js/jquery.js"></script>
+	<script src="__STATIC__/vhost/js/jq.cookie.js"></script>
+	<script src="__STATIC__/vhost/js/public.js"></script>
+	<script type="text/javascript" src="__STATIC__/vhost/js/artDialog.js"></script>
+	<style>
+	.main{min-height: 500px;}
+</style>
+</head>
+<body>
+	<div class="" style="display: none; position: absolute;">
+		<div class="aui_outer" id="aui_outer">
+			<table class="aui_border">
+				<tbody>
+					<tr>
+						<td class="aui_nw"></td>
+						<td class="aui_n"></td>
+						<td class="aui_ne"></td>
+					</tr>
+					<tr>
+						<td class="aui_w">
+
+						</td>
+						<td class="aui_c">
+							<div class="aui_inner">
+								<table class="aui_dialog">
+									<tbody>
+										<tr>
+											<td colspan="2" class="aui_header">
+												<div class="aui_titleBar">
+													<div class="aui_title" style="cursor: move; display: block;">
+
+													</div>
+													<a class="aui_close" href="javascript:/*artDialog*/;" style="display: block;">×</a>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td class="aui_icon" style="display: none;">
+												<div class="aui_iconBg" style="background: none;">
+													
+												</div>
+											</td>
+											<td class="aui_main" style="width: auto; height: auto;">
+												<div class="aui_content" id="aui_content" style="padding: 20px 25px;">
+													
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" class="aui_footer">
+												<div class="aui_buttons" style="display: none;">
+													
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</td>
+						<td class="aui_e">
+							
+						</td>
+					</tr>
+					<tr>
+						<td class="aui_sw">
+							
+						</td>
+						<td class="aui_s">
+							
+						</td>
+						<td class="aui_se" style="cursor: se-resize;">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div id="script"></div>
+	<div class="container"><!-- top start -->
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery(".wid_left").mouseover(function() {
+					jQuery(this).addClass('onMouseOver');
+				});
+				jQuery(".wid_left").mouseout(function() {
+					jQuery(this).removeClass('onMouseOver');
+				});
+			});
+		</script>
+		<div id="script"></div>
+		<div class="topbg"><div class="container"><div class="userinfo">{$USERINFO.username}<span>{$USERINFO.usergroup}</span></div></div></div>
+		<div class="clnav">
+			<div class="container">
+				<div class="nav">
+					<ul>
+						<li class="home"><a class="nav_1" href="/vhost/index.html">面板首页</a></li>
+						<li><a class="nav_2  " href="/vhost/domain.html">域名绑定</a></li>
+						<li><a class="nav_4  " href="/vhost/sql.html">数据库管理</a></li>
+						<li><a class="nav_5 " href="/vhost/sqlback.html">数据备份</a></li>
+						<li><a class="nav_7" href="/vhost/logout.html">安全退出</a></li>
+					</ul>
+				</div>
+			</div> 
+		</div>

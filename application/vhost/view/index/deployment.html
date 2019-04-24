@@ -1,0 +1,49 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">一键部署</div>
+
+	<div id="main">
+
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">程序列表</th>
+					</tr>
+					<tr>
+						<td colspan="5">
+							注意：请按照推荐PHP版本进行安装，如果程序在运行中出现异常，请调整PHP版本的设置。<hr/>
+							部署时长不定，取决于网络状况，所以如果出现很久没有响应的也不要紧张。<hr/>
+							一键部署程序不会清空网站内容，所以在部署前请尽量保证网站内容为空，避免造成文件/文件夹丢失。<hr/>
+							该功能由宝塔提供技术支持，如果多次出现程序部署失败，请联系本站管理员。
+						</td>
+					</tr>
+					<tr>
+						<th>名称</th>
+						<th>版本</th>
+						<th>简介</th>
+						<th>支持PHP版本</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+					{volist name="deploymentList.data" id="program" empty="当前无可用程序"}
+					<tr>
+						<td>{$program.title}</td>
+						<td>{$program.version}</td>
+						<td>{$program.ps}</td>
+						<td>{$program.php}</td>
+						<td><a href="?dep={$program.name}">一键部署</a></td>
+					</tr>
+					{/volist}
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站Ssl证书管理</div>
+
+	<div id="main">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="2">SSL状态：{$GetSSL.status ? '<span style="color:green">已开启SSL</span><a href="?ssl=off">[关闭]</a>' : '<span style="color:#2288cc">未开启</span>'}</th>
+					<th colspan="2">强制HTTPS：<input type="checkbox" id="toHttps" {$GetSSL.httpTohttps ? 'checked':''}></th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">设置证书</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>密钥(KEY)</td>
+						<td>证书(PEM格式)</td>
+					</tr>
+					<tr>
+						<td style="border:0">
+							<textarea name="key" style="width:100%;height:400px;line-height:22px">{$GetSSL.key}</textarea>
+						</td>
+						<td style="border:0">
+							<textarea name="csr" style="width:100%;height:400px;line-height:22px">{$GetSSL.csr}</textarea>
+						</td>
+					</tr>
+					<tr><td><input type="submit" value="保存并开启SSL" class="btn btn-warning"></td></tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+<script type="text/javascript">
+	$(function(){ 
+		$("#toHttps").change(function() {
+			
+			var a= $("#toHttps").is(':checked')?'1':'0';
+			$.post('', {toHttps:a}, function(data){
+				if(data.code=='200'){
+					alert(data.msg);
+				}else{
+					alert('请求失败：'+data.msg);
+				}
+			});
+		}); 
+	});
+</script>
+</body>
+</html>

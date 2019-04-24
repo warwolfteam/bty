@@ -1,0 +1,31 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站默认文件配置</div>
+
+	<div id="main">
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">网站默认文件</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="text" name="Dindex" value="{$indexfile}" style="width: 400px;"></td>	
+					</tr>
+					<tr><td><span style="color:red">！</span>优先级由前至后。使用英文,分割。</td></tr>
+					<tr>
+						<td style="border:0">
+							<input type="submit" value="提交" class="btn btn-warning">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

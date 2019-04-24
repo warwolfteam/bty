@@ -1,0 +1,29 @@
+<ul class="sidebar-menu" id="nav-accordion">
+    <li>
+        <a class="{switch name="$Request.controller"}{case value="Index" }active{/case}{/switch}" href="/user/index.html">
+            <i class="fa fa-dashboard"></i>
+            <span>主页</span>
+        </a>
+    </li>
+    <li>
+        <a class="{switch name="$Request.controller"}{case value="Shop" }active{/case}{/switch}" href="/user/shop.html" >
+            <i class="fa fa-shopping-cart"></i>
+            <span>主机商城</span>
+        </a>
+    </li>
+
+    <li>
+        <a class="{switch name="$Request.controller"}{case value="Order" }active{/case}{/switch}" href="/user/order.html" >
+            <i class="fa fa-th-list"></i>
+            <span>控制中心</span>
+        </a>
+    </li>
+
+    <li>
+        <a class="{switch name="$Request.controller"}{case value="Pay" }active{/case}{/switch}" href="/user/pay.html" >
+            <i class="fa fa-btc"></i>
+            <span>充值兑换</span>
+        </a>
+    </li>
+
+</ul>

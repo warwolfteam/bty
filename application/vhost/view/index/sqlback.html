@@ -1,0 +1,42 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">数据库备份管理</div>
+
+	<div id="main">
+
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">备份列表</th>
+					</tr>
+					<tr>
+						<th>文件名称</th>
+						<th>文件大小</th>
+						<th>备份时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{volist name="WebBackupList.data" id="web" empty="当前无备份"}
+					<tr>
+						<td>{$web.name}</td>
+						<td>{$web.size}</td>
+						<td>{$web.addtime}</td>
+						<td><a href="?down={$web.id}">下载</a>/<a href="?del={$web.id}">删除</a></td>
+					</tr>
+					{/volist}
+					{if $countback<5}
+					<tr>
+						<td colspan="4"><a href="?to=back" class="btn btn-warning">备份</a></td>
+					</tr>
+					{/if}
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

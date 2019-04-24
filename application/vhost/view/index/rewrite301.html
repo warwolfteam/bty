@@ -1,0 +1,97 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">网站301重定向配置</div>
+
+	<div id="main">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th colspan="2">状态：{$rewriteInfo.status ? '<span style="color:green">已开启</span><a href="?rewrite=off">[关闭]</a>' : '<span style="color:#2288cc">未开启</span>'}</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">301重定向设置</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							访问域名：<select class="bt-input-text mr5 domains" name="domains" style="width:260px" {$rewriteInfo.status ? 'disabled' :''}>
+								<option  value="all">整站</option>
+								{volist name="rewriteInfo.domain" id="domain"}
+								<option value="{$domain}" {$domain==$rewriteInfo.src ? 'selected=""' : ''}>{$domain}</option>
+								{/volist}
+							</select>
+						</td>
+						
+					</tr>
+					<tr>
+						<td style="border:0">
+							目标URL：<input name="toUrl" class="span3" value="{$rewriteInfo.url}" style="width:260px;" {$rewriteInfo.status ? 'disabled' :''}>
+						</td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="保存并开启" class="btn btn-warning" {$rewriteInfo.status ? 'disabled' :''}></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+<script type="text/javascript">
+	$("select[name='limit']").change(function(){
+		var type = $(this).val();
+		switch(type){
+			case '1':
+			perserver = 300;
+			perip = 25;
+			limit_rate = 512;
+			break;
+			case '2':
+			perserver = 200;
+			perip = 10;
+			limit_rate = 1024;
+			break;
+			case '3':
+			perserver = 50;
+			perip = 3;
+			limit_rate = 2048;
+			break;
+			case '4':
+			perserver = 500;
+			perip = 10;
+			limit_rate = 2048;
+			break;
+			case '5':
+			perserver = 400;
+			perip = 15;
+			limit_rate = 1024;
+			break;
+			case '6':
+			perserver = 60;
+			perip = 10;
+			limit_rate = 512;
+			break;
+			case '7':
+			perserver = 150;
+			perip = 4;
+			limit_rate = 1024;
+			break;
+		}
+
+		$("input[name='perserver']").val(perserver);
+		$("input[name='perip']").val(perip);
+		$("input[name='limit_rate']").val(limit_rate);
+		
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+{include file="public/header"}
+<!--  top end -->
+<script type="text/javascript">
+	var msg = '';
+	jQuery(document).ready(function() {
+		jQuery(".item").mouseover(function() {
+			jQuery(this).addClass('onMouseOver');
+		});
+		jQuery(".item").mouseout(function() {
+			jQuery(this).removeClass('onMouseOver');
+		});
+		if (msg != '') {
+			var dlog = art.dialog({id:'id232',time:3,content:msg,title:'提示',icon: 'warning',top:'53%'});
+		}
+	});
+
+</script>
+
+<div id="ep_main2">
+	<div class="ep_main2_general">
+		<div class="ep_main_title">基本功能</div>
+		<ul>
+			<li><a href="/vhost/domain.html"><img src="__STATIC__/vhost/imgs/ymbd.png" style="background:#77cdf0;"><span>域名绑定</span></a></li>
+			<li><a href="/vhost/pass.html"><img src="__STATIC__/vhost/imgs/xgmm.png" style="background:#ec5657"><span>修改密码</span></a></li>
+			<li><a href="/vhost/speed.html"><img src="__STATIC__/vhost/imgs/dkxz.png" style="background:#537cbe"><span>带宽限制</span></a></li>
+			<li><a href="/vhost/file.html"><img src="__STATIC__/vhost/imgs/mrwj.png" style="background:#8ed3f2"><span>默认文件</span></a></li>
+			<li><a href="/vhost/r301.html"><img src="__STATIC__/vhost/imgs/ymtz.png" style="background:#eb466e"><span>重点向</span></a></li>
+			<li>
+				{$WEBINFO.status?'<a href="javascript:sitestop()"><img src="__STATIC__/vhost/imgs/dkxz.png" style="background:#eb466e"><span><span>停用站点</span></a>' : '<a href="javascript:sitestart()"><img src="__STATIC__/vhost/imgs/cqjc.png" style="background:#56aede"><span>启用站点</span></a>'}
+			</li>
+
+			<li><a href="{$sqlurl?$sqlurl:"javascript:alert('未提供在线数据库管理')"}" target="_blank"><img src="__STATIC__/vhost/imgs/sjkgl.png" style="background:#56aede"><span>数据库管理</span></a></li>
+
+			<li><a href="/vhost/rewrite.html"><img src="__STATIC__/vhost/imgs/sjkgl.png" style="background:#56aede"><span>伪静态规则</span></a></li>
+
+
+		</ul>
+	</div>
+
+	<div class="ep_main2_general">
+		<div class="ep_main_title">空间管理</div>
+		<ul>
+			<li><a href="javascript:alert('未提供该服务')"><img src="__STATIC__/vhost/imgs/zxwj.png" style="background:#e9654c"><span>在线文件</span></a></li>
+			<li><a href="/vhost/siteback.html"><img src="__STATIC__/vhost/imgs/sjbf.png" style="background:#618fb1"><span>网站备份</span></a></li>
+			<li><a href="/vhost/ftp.html"><img src="__STATIC__/vhost/imgs/ftpsz.png" style="background:#7f7f7f"><span>FTP设置</span></a></li>
+			<li><a href="/vhost/sql.html"><img src="__STATIC__/vhost/imgs/sjkgl.png" style="background:#56aede"><span>数据库设置</span></a></li>
+			<li><a href="/vhost/sqlback.html"><img src="__STATIC__/vhost/imgs/sjkgl.png" style="background:#56aede"><span>数据库备份</span></a></li>
+			<li><a href="/vhost/ssl.html"><img src="__STATIC__/vhost/imgs/xgmxx.png" style="background:#ec5657"><span>SSL证书</span></a></li>
+		</ul>
+	</div>
+
+	<div class="ep_main2_general">
+		<div class="ep_main_title">安全管理</div>
+		<ul>
+			<li><a href="/vhost/protection.html"><img src="__STATIC__/vhost/imgs/fdl.png" style="background:#fcc433"><span>防盗链</span></a></li>
+		</ul>
+	</div>
+
+	<div class="ep_main2_general">
+		<div class="ep_main_title">高级功能</div>
+		<ul>
+			<li><a href="javascript:alert('未提供该服务')"><img src="__STATIC__/vhost/imgs/llt.png" style="background:#8ccfdf"><span>流量图</span></a></li>
+			<li><a href="./sitelog.html"><img src="__STATIC__/vhost/imgs/llt.png" style="background:#8ccfdf"><span>网站日志</span></a></li>
+			<li><a href="./httpauth.html"><img src="__STATIC__/vhost/imgs/httprz.png" style="background:#eb466e"><span>网站密码访问</span></a></li>
+			<li><a href="/vhost/deployment.html"><img src="__STATIC__/vhost/imgs/xnfx.png" style="background:#394c8e"><span>一键部署</span></a></li>
+
+		</ul>
+	</div>
+</div>
+
+<div id="ep_main3">
+	<div class="ep_main_title">虚拟主机信息</div>
+	<ul>
+		<li>主机状态：{$WEBINFO.status?'<span class="vhost_check">正常</span>':'<span class="vhost_stop">已停止</span>'}</li>
+		<li name="ftp1"><font color="red"><center>点击查看ftp信息</center></font></li>
+		<div name="ftp" style="display: none;">
+			<li>ftp地址:ftp://{$hostInfo.ip}:21</li>
+			<li>ftp端口:21</li>
+			<li>ftp账号:{$btHostInfo.ftpname}</li>
+			<li>ftp密码:{$btHostInfo.ftpkey}</li>
+		</div>
+
+		<li name="sql1"><font color="red"><center>点击查看SQL信息</center></font></li>
+		<div name="sql" style="display: none;">
+			<li>数据库地址:{$hostInfo.ip}</li>
+			<li>数据库端口:3306</li>
+			<li>数据库账号:{$btHostInfo.sqlname}</li>
+			<li>数据库密码:{$btHostInfo.sqlkey}</li>
+		</div>
+		<li id="webdd">网页空间：<progress value="22" max="100"></progress></li>
+		<li id="db">数据空间：<progress value="22" max="100"></progress></li>
+		<li>绑定域名限制：不限</li>
+		<li>最大连接数：不限</li>
+		<li>流量限制：不限</li>
+		<li>语言：php</li>
+		<li>
+			<form action="/vhost/phpSet.html" method="POST">切换php版本:
+				<select name="v">
+					{volist name="phpversion_list" id="php"}
+					<option value="{$php.version}" id="php_{$php.version}" {$php.version==$getSitePHPVer? 'selected' :''}>{$php.name}</option>
+					{/volist}
+				}
+			</select>
+			<input value="确定" type="submit">
+		</form>
+	</li>
+</ul>
+</div>
+<script>
+	$("[name=ftp1]").click(function(){
+		$('[name=ftp]').toggle();
+	});
+	$("[name=sql1]").click(function(){
+		$('[name=sql]').toggle();
+	});
+	function sitestop(){
+		$.post('/vhost/WebSiteStop.html', {webSataus:1}, function(data){
+			if(data.code==200){
+				alert(data.msg);
+			}else{
+				alert('请求失败：'+data.msg);
+			}
+		})
+	}
+	function sitestart(){
+		$.post('/vhost/WebSiteStart.html', {webSataus:1}, function(data){
+			if(data.code==200){
+				alert(data.msg);
+			}else{
+				alert('请求失败：'+data.msg);
+			}
+		})
+	}
+</script>
+<div style="clear:both"></div>
+<!-- foot start -->
+{include file="public/footer"}
+</div>
+
+</body>
+</html>

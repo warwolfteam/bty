@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Youngxj">
+  <meta name="keyword" content="{$Think.const.WEB_NAME}">
+
+  <title>{$Think.const.WEB_NAME} -- {$Think.const.WEB_DES}</title>
+  <meta name="description" content="{$Think.const.WEB_DES}">
+  <meta name="keyword" content="{$Think.const.WEB_KEY}">
+  <!-- Bootstrap core CSS -->
+  <link href="__STATIC__/css/bootstrap.min.css" rel="stylesheet">
+  <link href="__STATIC__/css/bootstrap-reset.css" rel="stylesheet">
+  <!--external css-->
+  <link href="__STATIC__/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <!--right slidebar-->
+  <link href="__STATIC__/css/slidebars.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="__STATIC__/css/style.css" rel="stylesheet">
+  <link href="__STATIC__/css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="__STATIC__/js/html5shiv.js"></script>
+      <script src="__STATIC__/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <header class="header white-bg">
+      <div class="header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="fa fa-bars"></span>
+        </button>
+
+        <!--logo start-->
+        <a href="index.html"><img src="/logo.png" class="logo" style="width: 60px;float: left;"></a>
+        <!-- <a href="index.html" class="logo">Bty</a> -->
+        <!--logo end-->
+        <div class="horizontal-menu navbar-collapse collapse ">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/index.html">主页</a></li>
+          </ul>
+
+        </div>
+        <div class="top-nav ">
+
+          <ul class="nav pull-right top-menu">
+            <li class="dropdown">
+
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <img alt="" src="__STATIC__/img/avatar1_small.jpg">
+                <span class="username">{$UserInfo.username?$UserInfo.username:'用户操作'}</span>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu extended logout">
+                <div class="log-arrow-up"></div>
+                {if condition="$UserInfo"}
+                <li><a href="/user/index.html"><i class=" fa fa-user"></i>个人中心</a></li>
+                <li><a href="/user/shop.html"><i class="fa fa-shopping-cart"></i> 主机商城</a></li>
+                <li><a href="/user/order.html"><i class="fa fa-th-list"></i> 订单中心</a></li>
+                <li><a href="/user/logout.html"><i class="fa fa-key"></i> 退出登录</a></li>
+                {else /}
+                <li><a href="/user/login.html"><i class="fa fa-user"></i> 登录</a></li>
+                <li><a href="/user/register.html"><i class="fa fa-user"></i> 注册</a></li>
+                <li><a href="/user/retrieve.html"><i class="fa fa-user"></i> 忘记密码</a></li>
+                <li></li>
+                {/if}
+              </ul>
+              
+            </li>
+            <!-- user login dropdown end -->
+          </ul>
+          
+          
+        </div>
+
+      </div>
+
+    </header>
+    <section id="container" class="">
+      <!--header start-->
+      
+      <!--header end-->
+      <!--sidebar start-->
+      
+      <!--sidebar end-->
+      <!--main content start-->
+      <section>
+        <section class="wrapper">
+          <!-- page start-->
+          <div class="row">
+            <!--price start-->
+            <div class="text-center feature-head">
+              <h1>{$Think.const.WEB_NAME}</h1>
+              <p>{$Think.const.WEB_DES}</p>
+              <p>我们尽可能为您提供最优质稳定的主机资源</p>
+              <p>当前源码为开源版，开源地址： <a href="https://gitee.com/youngxj0/Bty1.0">https://gitee.com/youngxj0/Bty1.0</a></p>
+              <p>如需付费版，请联系QQ1170535111</p>
+            </div>
+            {if !$hostList}
+            <p class="text-center">暂未添加主机</p>
+            {/if}
+            {volist name="hostList" id="host"}
+            <div class="col-lg-3 col-sm-3">
+              <div class="pricing-table {$host.hot?'most-popular':''}">
+                <div class="pricing-head">
+                  <h1> {$host.name} - {$host.local} </h1>
+                  <h2>
+                    <span class="note">$</span>{$host.money}/月 </h2>
+                  </div>
+                  <ul class="list-unstyled">
+                   {volist name="host['tags']" id="tag"}
+                   <li>{$tag}</li>
+                   {/volist}
+                 </ul>
+                 <div class="price-actions">
+                  <a class="btn" href="/user/buy/{$host.id}.html">购买</a>
+                </div>
+              </div>
+            </div>
+            {/volist}
+            <!--price end-->
+          </div>
+          <!-- page end-->
+        </section>
+      </section>
+      <section class="wrapper">
+        <!-- page start-->
+        <div class="row">
+          <div class="col-lg-3">
+            <section class="panel">
+              <header class="panel-heading">
+                项目介绍
+              </header>
+              <div class="panel-body">
+                该系统基于宝塔开放API底层控制器，进行主机控制，目前可以完成大部分主机操作功能如：新增主机、修改主机配置、删除主机、查找主机、以及宝塔面板能开放使用的主机操作功能，由于宝塔面板的单一用户性，所以开发这款可以由个人操作的IDC分销系统。
+
+              </div>
+            </section>
+
+          </div>
+          <div class="col-lg-3">
+            <section class="panel">
+              <header class="panel-heading">
+                源码销售
+              </header>
+              <div class="panel-body">
+                <p>第二版为付费版，暂定费用为198</p>  
+                <p>如有需求请联系QQ1170535111</p>              
+              </div>
+            </section>
+
+          </div>
+          
+          <div class="col-lg-3">
+            <section class="panel">
+              <header class="panel-heading">
+                项目特色
+              </header>
+              <div class="panel-body">
+                <li>独立的用户管理、后台配置、主机控制面板</li>
+                <li>使用宝塔API接入服务器可实现正常的网站操作</li>
+                <li>配合宝塔强大的生态系统，安装更多插件后可使用到许多有趣的功能</li>
+                <li>内置彩虹易支付，简单方便完成会员充值操作</li>
+              </div>
+            </section>
+
+          </div>
+          <div class="col-lg-3">
+            <section class="panel">
+              <header class="panel-heading">
+                作者介绍
+              </header>
+              <div class="panel-body">
+                本系统作者 <a href="https://www.youngxj.cn">Youngxj</a> 耗时一个月完成分销系统初步功能
+              </div>
+            </section>
+
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+      <!--main content end-->
+      <!--footer start-->
+      <footer class="site-footer">
+        <div class="text-center">
+          2019 &copy; Bty_{$Think.config.config.bty_version} by <a href="https://www.youngxj.cn" class="text-danger">Youngxj</a>
+          <a href="#" class="go-top">
+            <i class="fa fa-angle-up"></i>
+          </a>
+        </div>
+      </footer>
+      <!--footer end-->
+    </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+    <script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="__STATIC__/js/respond.min.js" ></script>
+
+    <!--right slidebar-->
+    <script src="__STATIC__/js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="__STATIC__/js/common-scripts.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/bd.js"></script>
+
+  </body>
+  </html>

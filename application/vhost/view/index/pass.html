@@ -1,0 +1,31 @@
+{include file="public/header"}
+<div class="main">
+	<div class="public_pa">面板账号密码配置</div>
+
+	<div id="main">
+
+		<form action="" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th style="border:0" colspan="2">账户配置</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="border:0">
+							用户名：<input name="username" class="span3" value="{$btHostInfo.username}">
+							密码：<input name="password" class="span3" value="{$btHostInfo.password}">
+							<input type="submit" value="保存" class="btn btn-warning">
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+{include file="public/footer"}
+</div>
+</body>
+</html>

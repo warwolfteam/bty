@@ -1,0 +1,152 @@
+{include file="public/header"}
+
+<body>
+
+	<section id="container" class="">
+		<!--header start-->
+		{include file="public/headtop"}
+		<!--header end-->
+		<!--sidebar start-->
+		<aside>
+			<div id="sidebar"  class="nav-collapse ">
+				<!-- sidebar menu start-->
+				{include file="public/menu" /}
+				<!-- sidebar menu end-->
+			</div>
+		</aside>
+		<!--sidebar end-->
+		<!--main content start-->
+		<section id="main-content">
+			<section class="wrapper site-min-height">
+				<!-- page start-->
+				<div class="row">
+					<div class="col-lg-12">
+						{include file="public/nav" webnavname="主机信息"}
+					</div>
+					<div class="col-md-12">
+						<section class="panel">
+							<div class="bio-graph-heading project-heading">
+								<strong>主机信息</strong>
+							</div>
+							<div class="panel-body bio-graph-info">
+								<!--<h1>New Dashboard BS3 </h1>-->
+								<div class="row">
+									<div class="col-lg-6">
+										<p><span class="bold">主 机   I P </span>: {$hostInfo.ip}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">主机状态 </span>: <span class="label label-primary">{$bthostInfo.status ? '开启' : '关闭'}</span></p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">开通时间 </span>: {$bthostInfo.stime}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">到期时间 </span>: {$bthostInfo.etime}</p>
+									</div>
+
+									<div class="col-lg-6">
+										<p><span class="bold">测试域名 </span>: <a href="http://{$bthostInfo.domain}">{$bthostInfo.domain}</a></p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">剩余天数</span>:  {$bthostInfo.syts} 天</p>
+									</div>
+									<div class="col-lg-12">
+										<p><span class="bold">性能标签 </span>: {volist name="hostTag" id="hosttag" empty="没有标签"}<span class="btn btn-primary btn-sm">{$hosttag} </span>{/volist}</p>
+									</div>
+									<div class="col-lg-12">
+										<p><span class="bold">系统环境 </span>: {volist name="service" id="hostservice" empty="没有标签"}<span class="btn btn-primary btn-sm">{$hostservice} </span>{/volist}</p>
+									</div>
+									<div class="col-lg-12">
+										<hr>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">FTP地址 </span>: ftp://{$hostInfo.ip}:21</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">SQl地址 </span>: {if $hostInfo.sqlurl}<a href="{$hostInfo.sqlurl}" target="_black">进入</a>{else /}未提供Web端MySQL管理工具{/if}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">FTP账号 </span>: {$bthostInfo.ftpname}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">数据库账号 </span>: {$bthostInfo.sqlname}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">FTP密码 </span>: <a onclick="showftpPass()" id="ftppass">显示密码</a></p>
+									</div>
+									
+									<div class="col-lg-6">
+										<p><span class="bold">数据库密码 </span>: <a onclick="showsqlPass()" id="sqlpass">显示密码</a></p>
+									</div>
+
+									<div class="col-lg-6">
+										<p><span class="bold">主机管理账号 </span>: {$bthostInfo.username}</p>
+									</div>
+									<div class="col-lg-6">
+										<p><span class="bold">主机管理密码 </span>: <a onclick="showPass()" id="hostpass">显示密码</a></p>
+									</div>
+									
+									<div class="col-lg-12">
+										<hr>
+									</div>
+									<div class="col-lg-12">
+										<div class="text-center invoice-btn">
+											<a class="btn btn-shadow btn-success btn-lg" href="/user/rlogin/{$bthostInfo.id}.html" target="_black" ><i class="fa fa-check"></i> 免密登录 </a>
+											<a class="btn btn-shadow btn-danger btn-lg" href="/vhost/login.html" target="_black"><i class="fa fa-check"></i> 主机管理 </a>
+											<a class="btn btn-shadow btn-info btn-lg" onclick="javascript:window.print();"><i class="fa fa-print"></i> 打印 </a>
+											<a class="btn btn-shadow btn-default btn-lg" href="/user/order.html"><i class="fa fa-mail-reply-all"></i> 返回订单 </a>
+											<a class="btn btn-shadow btn-success btn-lg" href="/user/renew/{$bthostInfo.id}.html"><i class="fa fa-cny"></i> 续费 </a>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</section>
+
+
+
+					</div>
+				</div>
+				<!-- page end-->
+			</section>
+		</section>
+		<!--main content end-->
+
+		<!-- Right Slidebar start -->
+		{include file="public/slidright"}
+		<!-- Right Slidebar end -->
+
+		<!--footer start-->
+		<footer class="site-footer">
+			{include file="public/footer"}
+		</footer>
+		<!--footer end-->
+	</section>
+
+	<!-- js placed at the end of the document so the pages load faster -->
+	<script src="__STATIC__/js/jquery.js"></script>
+	<script src="__STATIC__/js/bootstrap.min.js"></script>
+	<script class="include" type="text/javascript" src="__STATIC__/js/jquery.dcjqaccordion.2.7.js"></script>
+	<script src="__STATIC__/js/jquery.scrollTo.min.js"></script>
+	<script src="__STATIC__/js/slidebars.min.js"></script>
+	<script src="__STATIC__/js/jquery.nicescroll.js" type="text/javascript"></script>
+	<script src="__STATIC__/js/respond.min.js" ></script>
+
+	<!--common script for all pages-->
+	<script src="__STATIC__/js/common-scripts.js"></script>
+
+	<script>
+		function showPass(){
+			$('#hostpass').html('{$bthostInfo.password}');
+		}
+		function showsqlPass(){
+			$('#sqlpass').html('{$bthostInfo.sqlkey}');
+		}
+		function showftpPass(){
+			$('#ftppass').html('{$bthostInfo.ftpkey}');
+		}
+	</script>
+
+</body>
+</html>
